@@ -1,0 +1,4505 @@
+
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>童心AI · 智能成长陪伴空间</title>
+
+<style>
+
+/* =========================================================
+   全局颜色
+========================================================= */
+
+:root {
+  --ink:#24324a;
+  --muted:#77839a;
+
+  --purple:#7776ff;
+  --purple2:#9c8cff;
+
+  --blue:#72b7ff;
+  --mint:#72d9b4;
+  --pink:#ff9cbc;
+  --yellow:#ffd878;
+
+  --card:rgba(255,255,255,.94);
+
+  --line:rgba(231,235,246,.96);
+
+  --shadow:
+    0 18px 50px rgba(71,78,135,.11);
+
+  --shadow-soft:
+    0 10px 30px rgba(67,78,130,.07);
+}
+
+
+/* =========================================================
+   基础
+========================================================= */
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+
+  margin:0;
+
+  min-height:100vh;
+
+  color:var(--ink);
+
+  font-family:
+    "Microsoft YaHei",
+    "PingFang SC",
+    system-ui,
+    sans-serif;
+
+  background:
+
+    radial-gradient(
+      circle at 8% 10%,
+      rgba(113,183,255,.20),
+      transparent 27%
+    ),
+
+    radial-gradient(
+      circle at 92% 10%,
+      rgba(255,216,120,.22),
+      transparent 25%
+    ),
+
+    radial-gradient(
+      circle at 83% 87%,
+      rgba(255,156,188,.15),
+      transparent 28%
+    ),
+
+    linear-gradient(
+      180deg,
+      #f8fbff 0%,
+      #f7f6ff 50%,
+      #fffaf5 100%
+    );
+}
+
+button,
+input,
+textarea,
+select {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+  transition:.2s;
+}
+
+button:hover {
+  transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   背景装饰
+========================================================= */
+
+.bg-shape {
+
+  position:fixed;
+
+  pointer-events:none;
+
+  z-index:-1;
+
+  border-radius:999px;
+
+  filter:blur(2px);
+
+  opacity:.46;
+}
+
+.s1 {
+
+  width:180px;
+  height:180px;
+
+  background:#d9eeff;
+
+  left:-60px;
+  top:180px;
+}
+
+.s2 {
+
+  width:220px;
+  height:220px;
+
+  background:#fff0bd;
+
+  right:-90px;
+  top:260px;
+}
+
+.s3 {
+
+  width:160px;
+  height:160px;
+
+  background:#eee7ff;
+
+  left:18%;
+  bottom:-60px;
+}
+
+
+/* =========================================================
+   顶部导航
+========================================================= */
+
+.topbar {
+
+  position:sticky;
+
+  top:0;
+
+  z-index:50;
+
+  min-height:74px;
+
+  padding:0 30px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:20px;
+
+  background:
+    rgba(255,255,255,.75);
+
+  backdrop-filter:blur(18px);
+
+  border-bottom:
+    1px solid rgba(233,236,245,.78);
+}
+
+.brand {
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  font-weight:900;
+
+  font-size:19px;
+}
+
+.logo {
+
+  width:44px;
+  height:44px;
+
+  display:grid;
+
+  place-items:center;
+
+  border-radius:16px;
+
+  color:white;
+
+  font-size:22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--purple),
+      var(--purple2)
+    );
+
+  box-shadow:
+    0 10px 24px
+    rgba(123,120,255,.24);
+}
+
+.switch {
+
+  display:flex;
+
+  gap:8px;
+
+  padding:5px;
+
+  background:#f2f4fb;
+
+  border-radius:16px;
+}
+
+.switch button {
+
+  border:0;
+
+  background:transparent;
+
+  padding:9px 17px;
+
+  border-radius:12px;
+
+  color:#768197;
+
+  font-weight:800;
+}
+
+.switch button.active {
+
+  background:white;
+
+  color:#5968dd;
+
+  box-shadow:
+    0 5px 14px
+    rgba(80,90,130,.10);
+}
+
+.online {
+
+  font-size:13px;
+
+  color:#6f7c91;
+
+  display:flex;
+
+  gap:8px;
+
+  align-items:center;
+}
+
+.online i {
+
+  width:9px;
+  height:9px;
+
+  border-radius:50%;
+
+  background:#aeb6c6;
+}
+
+.online i.ok {
+
+  background:#55cda1;
+
+  box-shadow:
+    0 0 0 5px
+    rgba(85,205,161,.12);
+}
+
+
+/* =========================================================
+   主内容
+========================================================= */
+
+main {
+
+  width:min(
+    1180px,
+    calc(100% - 28px)
+  );
+
+  margin:auto;
+
+  padding:
+    32px 0
+    70px;
+}
+
+.view {
+  display:none;
+}
+
+.view.active {
+  display:block;
+}
+
+
+/* =========================================================
+   Hero
+========================================================= */
+
+.hero {
+
+  display:grid;
+
+  grid-template-columns:
+    1.3fr .7fr;
+
+  gap:22px;
+}
+
+.hero-main {
+
+  min-height:330px;
+
+  padding:40px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  color:white;
+
+  border-radius:32px;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      rgba(113,126,255,.97),
+      rgba(143,119,247,.96) 62%,
+      rgba(255,156,188,.94)
+    );
+
+  box-shadow:var(--shadow);
+}
+
+.hero-main:after {
+
+  content:"";
+
+  position:absolute;
+
+  right:-40px;
+  bottom:-70px;
+
+  width:260px;
+  height:260px;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,255,255,.12);
+}
+
+.hero-main > * {
+
+  position:relative;
+
+  z-index:2;
+}
+
+.hero-main h1 {
+
+  margin:
+    14px 0
+    12px;
+
+  font-size:42px;
+
+  line-height:1.22;
+}
+
+.hero-main p {
+
+  margin:0;
+
+  max-width:640px;
+
+  font-size:17px;
+
+  line-height:1.8;
+}
+
+.tag {
+
+  display:inline-flex;
+
+  padding:7px 12px;
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,.16);
+
+  font-size:12px;
+
+  font-weight:900;
+}
+
+.hero-side {
+
+  padding:28px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+
+  align-items:center;
+
+  text-align:center;
+
+  background:var(--card);
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:32px;
+
+  box-shadow:var(--shadow);
+}
+
+.mascot {
+
+  font-size:92px;
+
+  filter:
+    drop-shadow(
+      0 12px 18px
+      rgba(74,85,140,.15)
+    );
+}
+
+.hero-side h3 {
+
+  margin:
+    10px 0
+    5px;
+
+  font-size:24px;
+}
+
+.hero-side p {
+
+  margin:0;
+
+  color:var(--muted);
+
+  line-height:1.7;
+}
+
+
+/* =========================================================
+   通用
+========================================================= */
+
+.section {
+  margin-top:28px;
+}
+
+.section-head {
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:flex-end;
+
+  gap:15px;
+
+  margin:
+    0 4px
+    14px;
+}
+
+.section-head h2 {
+
+  margin:0;
+
+  font-size:24px;
+}
+
+.section-head span {
+
+  color:var(--muted);
+
+  font-size:13px;
+}
+
+.grid2 {
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:16px;
+}
+
+.grid3 {
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:16px;
+}
+
+.card {
+
+  padding:22px;
+
+  background:var(--card);
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:24px;
+
+  box-shadow:var(--shadow-soft);
+}
+
+.card h3 {
+
+  margin:
+    0 0
+    9px;
+}
+
+.card p {
+
+  margin:0;
+
+  color:var(--muted);
+
+  line-height:1.75;
+}
+
+.small {
+
+  font-size:13px;
+
+  color:var(--muted);
+}
+
+
+/* =========================================================
+   首页入口
+========================================================= */
+
+.entry {
+
+  min-height:210px;
+
+  padding:24px;
+
+  cursor:pointer;
+
+  background:white;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:24px;
+
+  box-shadow:
+    0 10px 28px
+    rgba(60,78,130,.08);
+
+  transition:.25s;
+}
+
+.entry:hover {
+
+  transform:
+    translateY(-5px);
+
+  box-shadow:
+    0 16px 38px
+    rgba(60,78,130,.14);
+}
+
+.entry .icon {
+
+  font-size:48px;
+
+  margin-bottom:12px;
+}
+
+.entry h3 {
+
+  margin:
+    0 0
+    8px;
+
+  font-size:21px;
+}
+
+.entry p {
+
+  margin:0;
+
+  color:var(--muted);
+
+  line-height:1.7;
+}
+
+
+/* =========================================================
+   按钮
+========================================================= */
+
+.btn {
+
+  border:0;
+
+  padding:
+    11px 18px;
+
+  border-radius:15px;
+
+  font-weight:900;
+}
+
+.btn.primary {
+
+  color:white;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--purple),
+      var(--purple2)
+    );
+}
+
+.btn.soft {
+
+  color:#5f6bd1;
+
+  background:#eef1ff;
+}
+
+.btn.green {
+
+  color:#33856a;
+
+  background:#eaf9f3;
+}
+
+.btn.pink {
+
+  color:#ca668a;
+
+  background:#fff0f5;
+}
+
+.btn.white {
+
+  color:#5d69d2;
+
+  background:white;
+}
+
+.btn.danger {
+
+  color:white;
+
+  background:#ff6f88;
+}
+
+.back-btn {
+
+  margin-bottom:18px;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  border:0;
+
+  padding:
+    10px 16px;
+
+  color:#6372db;
+
+  background:#f2f5fb;
+
+  border-radius:14px;
+
+  font-weight:900;
+}
+
+
+/* =========================================================
+   输入框
+========================================================= */
+
+textarea,
+input {
+
+  width:100%;
+
+  border:
+    1px solid
+    #dfe5ef;
+
+  border-radius:15px;
+
+  padding:
+    13px 14px;
+
+  background:white;
+
+  color:var(--ink);
+
+  outline:none;
+}
+
+textarea {
+
+  min-height:135px;
+
+  resize:vertical;
+}
+
+textarea:focus,
+input:focus {
+
+  border-color:
+    #9aa8ff;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(123,120,255,.10);
+}
+
+.output {
+
+  min-height:160px;
+
+  padding:18px;
+
+  line-height:1.85;
+
+  white-space:pre-wrap;
+
+  background:#f8faff;
+
+  border:
+    1px dashed
+    #ccd5e5;
+
+  border-radius:18px;
+}
+
+
+/* =========================================================
+   聊天
+========================================================= */
+
+.chat-container {
+
+  max-width:900px;
+
+  margin:auto;
+}
+
+.chat-messages {
+
+  min-height:420px;
+
+  max-height:520px;
+
+  overflow-y:auto;
+
+  margin-bottom:16px;
+
+  padding:20px;
+
+  background:white;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:24px;
+
+  box-shadow:
+    0 10px 28px
+    rgba(60,78,130,.07);
+}
+
+.chat-msg {
+
+  margin-bottom:14px;
+
+  display:flex;
+
+  flex-direction:column;
+}
+
+.chat-msg.user {
+  align-items:flex-end;
+}
+
+.chat-msg.bot {
+  align-items:flex-start;
+}
+
+.chat-role {
+
+  margin:
+    0 5px
+    5px;
+
+  font-size:12px;
+
+  color:#9099aa;
+}
+
+.chat-bubble {
+
+  max-width:72%;
+
+  padding:
+    12px 16px;
+
+  line-height:1.65;
+
+  word-break:break-word;
+
+  border-radius:18px;
+}
+
+.chat-msg.user
+.chat-bubble {
+
+  background:#edf1ff;
+}
+
+.chat-msg.bot
+.chat-bubble {
+
+  background:#fff0f6;
+}
+
+.chat-input-area {
+
+  display:flex;
+
+  gap:10px;
+}
+
+.chat-input-area textarea {
+
+  flex:1;
+
+  min-height:64px;
+}
+
+.chat-input-area button {
+
+  width:100px;
+}
+
+
+/* =========================================================
+   留言
+========================================================= */
+
+.moment {
+
+  padding:22px;
+
+  line-height:1.8;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fffaf0,
+      #fff3f7
+    );
+
+  border:
+    1px solid
+    #f5e8ea;
+
+  border-radius:22px;
+}
+
+
+/* =========================================================
+   家长四功能
+========================================================= */
+
+.parent-menu {
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:16px;
+}
+
+.parent-action {
+
+  min-height:220px;
+
+  padding:24px;
+
+  cursor:pointer;
+
+  background:white;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:24px;
+
+  box-shadow:
+    0 10px 28px
+    rgba(60,78,130,.08);
+
+  transition:.25s;
+}
+
+.parent-action:hover {
+
+  transform:
+    translateY(-5px);
+
+  box-shadow:
+    0 16px 38px
+    rgba(60,78,130,.14);
+}
+
+.parent-action .icon {
+
+  font-size:44px;
+
+  margin-bottom:14px;
+}
+
+.parent-action h3 {
+
+  margin:
+    0 0
+    9px;
+
+  font-size:20px;
+}
+
+.parent-action p {
+
+  margin:0;
+
+  color:var(--muted);
+
+  line-height:1.72;
+}
+
+
+/* =========================================================
+   今日统计
+========================================================= */
+
+.stats {
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:12px;
+}
+
+.stat {
+
+  padding:17px;
+
+  background:#f8f9fd;
+
+  border-radius:18px;
+}
+
+.stat b {
+
+  display:block;
+
+  margin-bottom:5px;
+
+  font-size:27px;
+}
+
+.stat span {
+
+  color:var(--muted);
+
+  font-size:13px;
+}
+
+
+/* =========================================================
+   家长聊天记录
+========================================================= */
+
+.chat-record {
+
+  max-height:540px;
+
+  overflow-y:auto;
+
+  padding:18px;
+
+  background:white;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:20px;
+}
+
+.chat-record-item {
+
+  padding:
+    0 0
+    15px;
+
+  margin-bottom:15px;
+
+  border-bottom:
+    1px solid
+    #f0f2f7;
+}
+
+.record-role {
+
+  margin-bottom:5px;
+
+  font-weight:900;
+}
+
+.record-text {
+
+  color:#596579;
+
+  line-height:1.75;
+}
+
+
+/* =========================================================
+   机器人
+========================================================= */
+
+.robot-layout {
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:18px;
+}
+
+.robot-stage {
+
+  padding:28px;
+
+  text-align:center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f7f8ff,
+      #fff7fb
+    );
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:28px;
+
+  box-shadow:var(--shadow);
+}
+
+.robot-status {
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:
+    8px 12px;
+
+  color:#3c8d6f;
+
+  background:#eefaf5;
+
+  border-radius:999px;
+
+  font-size:13px;
+
+  font-weight:800;
+}
+
+.robot-status i {
+
+  width:9px;
+  height:9px;
+
+  border-radius:50%;
+
+  background:#55cda1;
+}
+
+.robot-visual {
+
+  margin:
+    16px 0
+    8px;
+
+  font-size:92px;
+}
+
+.robot-info-grid {
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:10px;
+
+  margin-top:22px;
+}
+
+.robot-info {
+
+  padding:15px;
+
+  background:white;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:18px;
+}
+
+.robot-info b {
+
+  display:block;
+
+  margin-bottom:4px;
+
+  font-size:18px;
+}
+
+.control-card {
+
+  padding:26px;
+
+  background:white;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:28px;
+
+  box-shadow:
+    var(--shadow-soft);
+}
+
+.dpad {
+
+  margin:
+    26px auto
+    18px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,82px);
+
+  gap:10px;
+
+  justify-content:center;
+}
+
+.move-btn {
+
+  height:70px;
+
+  border:0;
+
+  color:#5f6bd1;
+
+  background:#eef1ff;
+
+  border-radius:20px;
+
+  font-size:28px;
+
+  font-weight:900;
+}
+
+.move-btn.center {
+
+  color:#cf698f;
+
+  background:#fff0f6;
+}
+
+.move-btn.empty {
+
+  visibility:hidden;
+}
+
+.robot-buttons {
+
+  display:flex;
+
+  justify-content:center;
+
+  gap:10px;
+
+  flex-wrap:wrap;
+}
+
+
+/* =========================================================
+   视频
+========================================================= */
+
+.video-panel {
+
+  margin-top:18px;
+
+  padding:22px;
+
+  background:white;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:28px;
+
+  box-shadow:
+    var(--shadow-soft);
+}
+
+.video-screen {
+
+  min-height:360px;
+
+  display:grid;
+
+  place-items:center;
+
+  position:relative;
+
+  overflow:hidden;
+
+  color:white;
+
+  background:#111827;
+
+  border-radius:24px;
+}
+
+.video-screen:before {
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(123,120,255,.36),
+      transparent 36%
+    ),
+
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(255,156,188,.28),
+      transparent 32%
+    );
+}
+
+.video-content {
+
+  position:relative;
+
+  z-index:2;
+
+  padding:30px;
+
+  text-align:center;
+}
+
+.video-avatar {
+
+  margin-bottom:12px;
+
+  font-size:76px;
+}
+
+.video-tools {
+
+  margin-top:22px;
+
+  display:flex;
+
+  gap:10px;
+
+  justify-content:center;
+
+  flex-wrap:wrap;
+}
+
+.video-small {
+
+  width:130px;
+  height:92px;
+
+  position:absolute;
+
+  top:16px;
+  right:16px;
+
+  display:grid;
+
+  place-items:center;
+
+  z-index:3;
+
+  font-size:36px;
+
+  background:
+    rgba(255,255,255,.12);
+
+  border:
+    1px solid
+    rgba(255,255,255,.2);
+
+  border-radius:16px;
+}
+
+.video-placeholder {
+
+  min-height:250px;
+
+  display:grid;
+
+  place-items:center;
+
+  padding:30px;
+
+  text-align:center;
+
+  color:var(--muted);
+
+  background:
+    linear-gradient(
+      135deg,
+      #f8f9ff,
+      #fff8fb
+    );
+
+  border:
+    1px dashed
+    #ccd5e5;
+
+  border-radius:22px;
+}
+
+
+/* =========================================================
+   Toast
+========================================================= */
+
+.toast {
+
+  position:fixed;
+
+  left:50%;
+  bottom:28px;
+
+  z-index:999;
+
+  padding:
+    12px 18px;
+
+  color:white;
+
+  background:#24324a;
+
+  border-radius:14px;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transform:
+    translateX(-50%)
+    translateY(18px);
+
+  transition:.25s;
+}
+
+.toast.show {
+
+  opacity:1;
+
+  transform:
+    translateX(-50%)
+    translateY(0);
+}
+
+
+/* =========================================================
+   手机
+========================================================= */
+
+@media(max-width:1000px) {
+
+  .parent-menu {
+
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .robot-layout {
+
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:900px) {
+
+  .hero,
+  .grid2,
+  .grid3 {
+
+    grid-template-columns:1fr;
+  }
+
+  .stats {
+
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .chat-bubble {
+
+    max-width:88%;
+  }
+}
+
+@media(max-width:650px) {
+
+  .topbar {
+
+    padding:
+      12px 16px;
+
+    flex-wrap:wrap;
+  }
+
+  .switch {
+
+    width:100%;
+
+    order:3;
+
+    justify-content:center;
+  }
+
+  main {
+
+    width:
+      calc(100% - 20px);
+
+    padding:
+      20px 0
+      55px;
+  }
+
+  .hero-main {
+
+    padding:28px;
+  }
+
+  .hero-main h1 {
+
+    font-size:34px;
+  }
+
+  .parent-menu {
+
+    grid-template-columns:1fr;
+  }
+
+  .chat-input-area {
+
+    flex-direction:column;
+  }
+
+  .chat-input-area button {
+
+    width:100%;
+  }
+
+  .section-head {
+
+    align-items:flex-start;
+
+    flex-direction:column;
+  }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="bg-shape s1"></div>
+<div class="bg-shape s2"></div>
+<div class="bg-shape s3"></div>
+
+
+<!-- =========================================================
+     顶部
+========================================================= -->
+
+<header class="topbar">
+
+  <div class="brand">
+
+    <div class="logo">
+      ✦
+    </div>
+
+    <span>
+      童心AI
+    </span>
+
+  </div>
+
+
+  <div class="switch">
+
+    <button
+      class="active"
+      data-view="child"
+    >
+      我是孩子
+    </button>
+
+    <button
+      data-view="parent"
+    >
+      我是家长
+    </button>
+
+  </div>
+
+
+  <div class="online">
+
+    <i id="dot"></i>
+
+    <span id="onlineText">
+      正在连接
+    </span>
+
+  </div>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================================================
+     儿童首页
+========================================================= -->
+
+<section
+  id="child"
+  class="view active"
+>
+
+  <div class="hero">
+
+    <div class="hero-main">
+
+      <span class="tag">
+        今天也一起探索一点新东西吧
+      </span>
+
+      <h1>
+        你好呀，小小探索家 👋
+      </h1>
+
+      <p>
+        今天小智会陪你聊聊天、完成一个成长挑战，
+        也别忘了看看家人有没有给你留下新的话。
+      </p>
+
+    </div>
+
+
+    <div class="hero-side">
+
+      <div class="mascot">
+        🤖🌟
+      </div>
+
+      <h3>
+        小智在这里
+      </h3>
+
+      <p>
+        遇到不懂的地方就来问我，
+        我会用简单的话陪你一起想。
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="section-head">
+
+      <h2>
+        今天的成长陪伴
+      </h2>
+
+      <span>
+        选择一个你想做的事情
+      </span>
+
+    </div>
+
+
+    <div class="grid3">
+
+
+      <div
+        class="entry"
+        onclick="goPage('chat')"
+      >
+
+        <div class="icon">
+          💬
+        </div>
+
+        <h3>
+          和小智聊聊今天
+        </h3>
+
+        <p>
+          说说今天发生了什么、你的心情怎么样，
+          小智会认真听你说。
+        </p>
+
+      </div>
+
+
+      <div
+        class="entry"
+        onclick="goPage('challenge')"
+      >
+
+        <div class="icon">
+          🌱
+        </div>
+
+        <h3>
+          完成一个成长挑战
+        </h3>
+
+        <p>
+          完成一个适合你的学习、
+          生活习惯或者安全小挑战。
+        </p>
+
+      </div>
+
+
+      <div
+        class="entry"
+        onclick="goPage('family')"
+      >
+
+        <div class="icon">
+          💌
+        </div>
+
+        <h3>
+          看看家人的留言
+        </h3>
+
+        <p>
+          看看爸爸妈妈有没有给你留下鼓励、
+          提醒或者想和你分享的话。
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     儿童聊天
+========================================================= -->
+
+<section
+  id="chat"
+  class="view"
+>
+
+  <div class="chat-container">
+
+    <button
+      class="back-btn"
+      onclick="goPage('child')"
+    >
+      ← 回到首页
+    </button>
+
+
+    <div class="section-head">
+
+      <h2>
+        和小智聊聊今天
+      </h2>
+
+      <span>
+        AI陪伴伙伴
+      </span>
+
+    </div>
+
+
+    <div
+      class="chat-messages"
+      id="chatMessages"
+    >
+    </div>
+
+
+    <div class="chat-input-area">
+
+      <textarea
+        id="chatInput"
+        placeholder="说说今天发生了什么吧，或者你现在的心情……"
+      ></textarea>
+
+
+      <button
+        class="btn primary"
+        onclick="sendChat()"
+      >
+        发送
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     成长挑战
+========================================================= -->
+
+<section
+  id="challenge"
+  class="view"
+>
+
+  <button
+    class="back-btn"
+    onclick="goPage('child')"
+  >
+    ← 回到首页
+  </button>
+
+
+  <div class="section-head">
+
+    <h2>
+      今天的成长挑战
+    </h2>
+
+    <span>
+      每天进步一点点
+    </span>
+
+  </div>
+
+
+  <div class="grid2">
+
+    <div class="card">
+
+      <div
+        style="
+          font-size:50px;
+          margin-bottom:14px;
+        "
+      >
+        🌱
+      </div>
+
+      <h3>
+        今天和家人说一句谢谢
+      </h3>
+
+      <p>
+        想一想今天爸爸妈妈或者其他家人为你做了什么，
+        然后当面或者通过留言对他们说一声“谢谢”。
+      </p>
+
+      <div style="height:18px"></div>
+
+      <button
+        class="btn primary"
+        onclick="finishChallenge()"
+      >
+        我完成了这个挑战
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>
+        为什么要做这个挑战？
+      </h3>
+
+      <p>
+        表达感谢，可以让我们更容易发现身边人的关心，
+        也能让家人知道你已经感受到了他们的爱。
+      </p>
+
+      <div style="height:18px"></div>
+
+      <div class="moment">
+        🌟 小提示：不用说很长，
+        一句“谢谢妈妈今天陪我”，
+        就已经很好啦。
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     家人留言
+========================================================= -->
+
+<section
+  id="family"
+  class="view"
+>
+
+  <button
+    class="back-btn"
+    onclick="goPage('child')"
+  >
+    ← 回到首页
+  </button>
+
+
+  <div class="section-head">
+
+    <h2>
+      来自家人的小心意
+    </h2>
+
+    <span>
+      家人想对你说的话
+    </span>
+
+  </div>
+
+
+  <div class="card">
+
+    <div
+      class="moment"
+      id="childMessage"
+    >
+      💌 这里会显示家长给你的鼓励和提醒。
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     家长首页
+========================================================= -->
+
+<section
+  id="parent"
+  class="view"
+>
+
+  <div class="hero">
+
+    <div
+      class="hero-main"
+      style="
+        background:
+        linear-gradient(
+          135deg,
+          #6fa7ff,
+          #7d83f6 58%,
+          #79d6b4
+        );
+      "
+    >
+
+      <span class="tag">
+        陪伴不是盯着，而是看见成长
+      </span>
+
+      <h1>
+        今天，孩子又进步了一点
+      </h1>
+
+      <p>
+        您可以查看孩子和小智之间的互动，
+        获取AI成长建议，
+        给孩子留下鼓励的话，
+        也可以体验陪伴机器人的远程控制和视频通话。
+      </p>
+
+    </div>
+
+
+    <div class="hero-side">
+
+      <div class="mascot">
+        🌱📘
+      </div>
+
+      <h3>
+        今日成长摘要
+      </h3>
+
+      <p id="summaryText">
+        AI互动 0 次
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="section-head">
+
+      <h2>
+        今日概览
+      </h2>
+
+      <span>
+        当前设备记录
+      </span>
+
+    </div>
+
+
+    <div class="stats">
+
+      <div class="stat">
+
+        <b id="statChat">
+          0
+        </b>
+
+        <span>
+          AI互动次数
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <b id="statMessages">
+          0
+        </b>
+
+        <span>
+          孩子发送消息
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <b id="statChallenge">
+          未完成
+        </b>
+
+        <span>
+          今日成长挑战
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <b id="statFamily">
+          0
+        </b>
+
+        <span>
+          家长留言
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="section-head">
+
+      <h2>
+        家长功能中心
+      </h2>
+
+      <span>
+        点击对应功能进入
+      </span>
+
+    </div>
+
+
+    <div class="parent-menu">
+
+
+      <div
+        class="parent-action"
+        onclick="goPage('parentMessagePage')"
+      >
+
+        <div class="icon">
+          💌
+        </div>
+
+        <h3>
+          给孩子一句话
+        </h3>
+
+        <p>
+          给孩子发送鼓励、提醒，
+          或者今天想对孩子说的一句话。
+        </p>
+
+      </div>
+
+
+      <div
+        class="parent-action"
+        onclick="goPage('robotControl')"
+      >
+
+        <div class="icon">
+          🤖
+        </div>
+
+        <h3>
+          控制机器人
+        </h3>
+
+        <p>
+          查看机器人状态、
+          模拟移动控制，
+          并进入视频通话展示。
+        </p>
+
+      </div>
+
+
+      <div
+        class="parent-action"
+        onclick="goPage('chatRecordPage')"
+      >
+
+        <div class="icon">
+          💬
+        </div>
+
+        <h3>
+          查看聊天记录
+        </h3>
+
+        <p>
+          查看孩子今天与小智之间
+          的聊天和交流内容。
+        </p>
+
+      </div>
+
+
+      <div
+        class="parent-action"
+        onclick="goPage('reportPage')"
+      >
+
+        <div class="icon">
+          📊
+        </div>
+
+        <h3>
+          生成成长分析
+        </h3>
+
+        <p>
+          根据孩子近期互动内容，
+          自动生成成长观察和陪伴建议。
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     家长留言
+========================================================= -->
+
+<section
+  id="parentMessagePage"
+  class="view"
+>
+
+  <button
+    class="back-btn"
+    onclick="goPage('parent')"
+  >
+    ← 返回家长端
+  </button>
+
+
+  <div class="section-head">
+
+    <h2>
+      给孩子一句话
+    </h2>
+
+    <span>
+      鼓励比提醒更重要
+    </span>
+
+  </div>
+
+
+  <div class="grid2">
+
+    <div class="card">
+
+      <h3>
+        写下今天想对孩子说的话
+      </h3>
+
+      <p>
+        内容会显示在孩子端的“家人的留言”页面。
+      </p>
+
+      <div style="height:14px"></div>
+
+      <textarea
+        id="parentMessage"
+        placeholder="例如：今天你主动和小智聊天，妈妈看到你愿意表达自己，真的很棒！"
+      ></textarea>
+
+      <div style="height:12px"></div>
+
+      <button
+        class="btn primary"
+        onclick="sendParentMessage()"
+      >
+        💌 发送给孩子
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>
+        可以这样和孩子说
+      </h3>
+
+      <div style="height:12px"></div>
+
+      <div class="moment">
+        🌟 “我看到你今天愿意分享自己的心情了。”
+      </div>
+
+      <div style="height:10px"></div>
+
+      <div class="moment">
+        💛 “不开心也没关系，我们可以一起慢慢想办法。”
+      </div>
+
+      <div style="height:10px"></div>
+
+      <div class="moment">
+        🌱 “你今天比昨天又多懂了一点。”
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="card">
+
+      <h3>
+        当前留言
+      </h3>
+
+      <div style="height:12px"></div>
+
+      <div
+        class="output"
+        id="parentCurrentMessage"
+      >
+        暂时还没有留言。
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     聊天记录
+========================================================= -->
+
+<section
+  id="chatRecordPage"
+  class="view"
+>
+
+  <button
+    class="back-btn"
+    onclick="goPage('parent')"
+  >
+    ← 返回家长端
+  </button>
+
+
+  <div class="section-head">
+
+    <h2>
+      孩子和小智的聊天记录
+    </h2>
+
+    <span>
+      当前浏览器保存的互动记录
+    </span>
+
+  </div>
+
+
+  <div class="grid2">
+
+    <div class="card">
+
+      <h3>
+        今日互动记录
+      </h3>
+
+      <div style="height:12px"></div>
+
+      <div
+        class="chat-record"
+        id="parentChatRecord"
+      >
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>
+        对话概览
+      </h3>
+
+      <div style="height:12px"></div>
+
+      <div class="stats">
+
+        <div class="stat">
+
+          <b id="recordUserCount">
+            0
+          </b>
+
+          <span>
+            孩子消息
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <b id="recordAiCount">
+            0
+          </b>
+
+          <span>
+            AI回复
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <b id="recordTotal">
+            0
+          </b>
+
+          <span>
+            总消息数
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <b id="recordInteraction">
+            0
+          </b>
+
+          <span>
+            AI互动
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div style="height:18px"></div>
+
+      <button
+        class="btn soft"
+        onclick="clearChatHistory()"
+      >
+        清空本机聊天记录
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     AI分析
+========================================================= -->
+
+<section
+  id="reportPage"
+  class="view"
+>
+
+  <button
+    class="back-btn"
+    onclick="goPage('parent')"
+  >
+    ← 返回家长端
+  </button>
+
+
+  <div class="section-head">
+
+    <h2>
+      AI成长分析
+    </h2>
+
+    <span>
+      根据近期互动生成
+    </span>
+
+  </div>
+
+
+  <div class="grid2">
+
+    <div class="card">
+
+      <div
+        style="
+          font-size:52px;
+          margin-bottom:12px;
+        "
+      >
+        📊
+      </div>
+
+      <h3>
+        生成今日成长建议
+      </h3>
+
+      <p>
+        系统会根据孩子和小智之间的互动记录，
+        从表达、成长和家庭陪伴角度，
+        生成温和的家长参考建议。
+      </p>
+
+      <div style="height:18px"></div>
+
+      <button
+        id="reportButton"
+        class="btn primary"
+        onclick="generateReport()"
+      >
+        ✨ 生成成长建议
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>
+        分析原则
+      </h3>
+
+      <p>
+        AI只根据当前对话内容进行陪伴性总结，
+        不进行医学诊断，
+        不给孩子贴标签，
+        重点帮助家长理解孩子的表达和成长变化。
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="card">
+
+      <h3>
+        成长分析结果
+      </h3>
+
+      <div style="height:12px"></div>
+
+      <div
+        id="parentReport"
+        class="output"
+      >
+        点击“生成成长建议”，让AI为您整理孩子今天的表现。
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     机器人
+========================================================= -->
+
+<section
+  id="robotControl"
+  class="view"
+>
+
+  <button
+    class="back-btn"
+    onclick="goPage('parent')"
+  >
+    ← 返回家长端
+  </button>
+
+
+  <div class="section-head">
+
+    <h2>
+      陪伴机器人远程控制
+    </h2>
+
+    <span>
+      当前为功能展示模式
+    </span>
+
+  </div>
+
+
+  <div class="robot-layout">
+
+
+    <div class="robot-stage">
+
+      <div class="robot-status">
+
+        <i></i>
+
+        演示设备在线
+
+      </div>
+
+
+      <div class="robot-visual">
+        🤖
+      </div>
+
+
+      <h3>
+        童心陪伴机器人
+      </h3>
+
+
+      <p class="small">
+        当前暂未连接真实机器人，
+        所有控制功能用于展示未来的远程陪伴能力。
+      </p>
+
+
+      <div class="robot-info-grid">
+
+        <div class="robot-info">
+
+          <b>
+            85%
+          </b>
+
+          <span class="small">
+            🔋 当前电量
+          </span>
+
+        </div>
+
+
+        <div class="robot-info">
+
+          <b>
+            在线
+          </b>
+
+          <span class="small">
+            📡 网络状态
+          </span>
+
+        </div>
+
+
+        <div class="robot-info">
+
+          <b id="robotAction">
+            待机
+          </b>
+
+          <span class="small">
+            🤖 当前状态
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="control-card">
+
+      <h3>
+        远程移动控制
+      </h3>
+
+      <p class="small">
+        点击方向键模拟机器人运动。
+      </p>
+
+
+      <div class="dpad">
+
+        <button
+          class="move-btn empty"
+        ></button>
+
+        <button
+          class="move-btn"
+          onclick="robotMove('前进')"
+        >
+          ↑
+        </button>
+
+        <button
+          class="move-btn empty"
+        ></button>
+
+
+        <button
+          class="move-btn"
+          onclick="robotMove('左转')"
+        >
+          ←
+        </button>
+
+        <button
+          class="move-btn center"
+          onclick="robotMove('停止')"
+        >
+          ■
+        </button>
+
+        <button
+          class="move-btn"
+          onclick="robotMove('右转')"
+        >
+          →
+        </button>
+
+
+        <button
+          class="move-btn empty"
+        ></button>
+
+        <button
+          class="move-btn"
+          onclick="robotMove('后退')"
+        >
+          ↓
+        </button>
+
+        <button
+          class="move-btn empty"
+        ></button>
+
+      </div>
+
+
+      <div class="robot-buttons">
+
+        <button
+          class="btn green"
+          onclick="robotMove('回到充电位')"
+        >
+          🔋 回充
+        </button>
+
+
+        <button
+          class="btn soft"
+          onclick="robotMove('原地巡航')"
+        >
+          🔄 巡航
+        </button>
+
+
+        <button
+          class="btn pink"
+          onclick="robotMove('寻找孩子')"
+        >
+          👧 寻找孩子
+        </button>
+
+      </div>
+
+
+      <div style="height:20px"></div>
+
+
+      <button
+        class="btn primary"
+        style="
+          width:100%;
+          padding:14px 18px;
+        "
+        onclick="startVideoCall()"
+      >
+        📹 发起视频通话
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="video-panel">
+
+    <div class="section-head">
+
+      <h2 style="font-size:20px">
+        实时视频
+      </h2>
+
+      <span id="videoStatus">
+        当前未通话
+      </span>
+
+    </div>
+
+
+    <div
+      id="videoPlaceholder"
+      class="video-placeholder"
+    >
+
+      <div>
+
+        <div
+          style="
+            font-size:58px;
+            margin-bottom:10px;
+          "
+        >
+          📹
+        </div>
+
+        <strong>
+          尚未开启视频通话
+        </strong>
+
+        <div
+          class="small"
+          style="
+            margin-top:8px;
+            line-height:1.7;
+          "
+        >
+          点击“发起视频通话”，
+          可以进入视频通话展示界面。
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      id="videoScreen"
+      class="video-screen"
+      style="display:none"
+    >
+
+      <div class="video-small">
+        👨‍👩‍👧
+      </div>
+
+
+      <div class="video-content">
+
+        <div class="video-avatar">
+          👧🏻 🤖
+        </div>
+
+        <h3>
+          正在连接陪伴机器人
+        </h3>
+
+        <p>
+          当前是系统原型的视频通话展示界面。
+          未来接入机器人摄像头、麦克风和实时通信服务后，
+          家长可以在这里远程看到孩子并进行实时交流。
+        </p>
+
+
+        <div class="video-tools">
+
+          <button
+            id="micButton"
+            class="btn white"
+            onclick="toggleMic()"
+          >
+            🎤 麦克风开启
+          </button>
+
+
+          <button
+            id="cameraButton"
+            class="btn white"
+            onclick="toggleCamera()"
+          >
+            📷 摄像头开启
+          </button>
+
+
+          <button
+            id="speakerButton"
+            class="btn white"
+            onclick="toggleSpeaker()"
+          >
+            🔊 扬声器开启
+          </button>
+
+
+          <button
+            class="btn danger"
+            onclick="endVideoCall()"
+          >
+            📞 结束通话
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+<div
+  id="toast"
+  class="toast"
+></div>
+
+
+<script>
+
+
+/* =========================================================
+   API地址
+========================================================= */
+
+const API =
+  localStorage.getItem("apiBase")
+  ||
+  window.location.origin;
+
+
+/* =========================================================
+   状态
+========================================================= */
+
+const state = {
+
+  chatHistory:
+    JSON.parse(
+      localStorage.getItem("chatHistory")
+      ||
+      "[]"
+    ),
+
+  aiCount:
+    Number(
+      localStorage.getItem("aiCount")
+      ||
+      0
+    ),
+
+  challengeDone:
+    localStorage.getItem("challengeDone")
+    ===
+    "true",
+
+  parentMessage:
+    localStorage.getItem("parentMessage")
+    ||
+    ""
+
+};
+
+
+/* =========================================================
+   顶部切换
+========================================================= */
+
+document
+.querySelectorAll(
+  ".switch button"
+)
+.forEach(
+  btn => {
+
+    btn.onclick =
+      () => {
+
+        document
+        .querySelectorAll(
+          ".switch button"
+        )
+        .forEach(
+          b =>
+            b.classList.remove(
+              "active"
+            )
+        );
+
+        btn
+        .classList
+        .add(
+          "active"
+        );
+
+        goPage(
+          btn.dataset.view
+        );
+
+      };
+
+  }
+);
+
+
+/* =========================================================
+   页面跳转
+========================================================= */
+
+function goPage(id) {
+
+  document
+  .querySelectorAll(
+    ".view"
+  )
+  .forEach(
+    v =>
+      v.classList.remove(
+        "active"
+      )
+  );
+
+
+  const page =
+    document
+    .getElementById(id);
+
+
+  if(page) {
+
+    page
+    .classList
+    .add(
+      "active"
+    );
+
+  }
+
+
+  if(id === "chat") {
+
+    renderChat();
+
+  }
+
+
+  if(id === "family") {
+
+    renderFamilyMessage();
+
+  }
+
+
+  if(
+    id === "parent"
+    ||
+    id === "chatRecordPage"
+    ||
+    id === "parentMessagePage"
+  ) {
+
+    refreshParent();
+
+  }
+
+
+  window.scrollTo({
+
+    top:0,
+
+    behavior:"smooth"
+
+  });
+
+}
+
+
+/* =========================================================
+   后端连接检测
+   这里已经改成 /api/health
+========================================================= */
+
+async function checkBackend() {
+
+  const text =
+    document
+    .getElementById(
+      "onlineText"
+    );
+
+  const dot =
+    document
+    .getElementById(
+      "dot"
+    );
+
+
+  text.textContent =
+    "正在连接";
+
+
+  try {
+
+    const response =
+      await fetch(
+
+        API
+        +
+        "/api/health",
+
+        {
+
+          method:"GET",
+
+          cache:"no-store"
+
+        }
+
+      );
+
+
+    if(!response.ok) {
+
+      throw new Error(
+        "HTTP "
+        +
+        response.status
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    console.log(
+      "后端状态：",
+      data
+    );
+
+
+    dot
+    .classList
+    .add(
+      "ok"
+    );
+
+
+    text.textContent =
+      "服务已连接";
+
+  }
+
+  catch(error) {
+
+    console.error(
+      "后端连接失败：",
+      error
+    );
+
+
+    dot
+    .classList
+    .remove(
+      "ok"
+    );
+
+
+    text.textContent =
+      "服务暂时离线";
+
+  }
+
+}
+
+
+/* =========================================================
+   聊天显示
+========================================================= */
+
+function renderChat() {
+
+  const box =
+    document
+    .getElementById(
+      "chatMessages"
+    );
+
+
+  if(
+    !state.chatHistory.length
+  ) {
+
+    box.innerHTML = `
+
+      <div class="chat-msg bot">
+
+        <div class="chat-role">
+          🤖 小智
+        </div>
+
+        <div class="chat-bubble">
+          你好呀！我是小智，你今天过得怎么样呀？
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+
+    state.chatHistory
+
+    .map(
+
+      item => {
+
+        const isUser =
+          item.role
+          ===
+          "user";
+
+
+        return `
+
+          <div
+            class="chat-msg
+            ${isUser ? "user" : "bot"}"
+          >
+
+            <div class="chat-role">
+
+              ${
+                isUser
+                ?
+                "👧 你"
+                :
+                "🤖 小智"
+              }
+
+            </div>
+
+
+            <div class="chat-bubble">
+
+              ${safe(item.text)}
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+
+    )
+
+    .join("");
+
+
+  box.scrollTop =
+    box.scrollHeight;
+
+}
+
+
+/* =========================================================
+   给豆包发消息
+========================================================= */
+
+async function sendChat() {
+
+  const input =
+    document
+    .getElementById(
+      "chatInput"
+    );
+
+
+  const text =
+    input
+    .value
+    .trim();
+
+
+  if(!text) {
+
+    return;
+
+  }
+
+
+  state
+  .chatHistory
+  .push({
+
+    role:"user",
+
+    text:text
+
+  });
+
+
+  input.value = "";
+
+
+  saveState();
+
+  renderChat();
+
+
+  const prompt =
+
+    "孩子说："
+    +
+    text
+    +
+    "。你是陪伴孩子的AI伙伴小智。"
+    +
+    "请使用温暖、简单、适合儿童理解的话回应。"
+    +
+    "不要提数据、算法、标签、分析等词。"
+    +
+    "尽量控制在50字以内。";
+
+
+  try {
+
+    const response =
+      await fetch(
+
+        API
+        +
+        "/api/ai/analyze",
+
+        {
+
+          method:"POST",
+
+          headers:{
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              text:prompt
+
+            })
+
+        }
+
+      );
+
+
+    if(!response.ok) {
+
+      const errorText =
+        await response.text();
+
+
+      throw new Error(
+        errorText
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    const reply =
+
+      data.result
+
+      ||
+
+      "我听到啦。你还想继续和我说说吗？";
+
+
+    state
+    .chatHistory
+    .push({
+
+      role:"bot",
+
+      text:reply
+
+    });
+
+
+    state.aiCount ++;
+
+
+    saveState();
+
+    renderChat();
+
+    refreshParent();
+
+  }
+
+  catch(error) {
+
+    console.error(
+      "调用豆包失败：",
+      error
+    );
+
+
+    state
+    .chatHistory
+    .push({
+
+      role:"bot",
+
+      text:
+        "小智暂时没有连接成功，请稍后再和我聊聊吧。"
+
+    });
+
+
+    saveState();
+
+    renderChat();
+
+
+    showToast(
+      "AI服务暂时连接失败"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   保存状态
+========================================================= */
+
+function saveState() {
+
+  localStorage.setItem(
+
+    "chatHistory",
+
+    JSON.stringify(
+      state.chatHistory
+    )
+
+  );
+
+
+  localStorage.setItem(
+
+    "aiCount",
+
+    String(
+      state.aiCount
+    )
+
+  );
+
+
+  localStorage.setItem(
+
+    "challengeDone",
+
+    String(
+      state.challengeDone
+    )
+
+  );
+
+
+  localStorage.setItem(
+
+    "parentMessage",
+
+    state.parentMessage
+    ||
+    ""
+
+  );
+
+}
+
+
+/* =========================================================
+   成长挑战
+========================================================= */
+
+function finishChallenge() {
+
+  state.challengeDone =
+    true;
+
+
+  saveState();
+
+  refreshParent();
+
+
+  showToast(
+    "太棒啦！今天的成长挑战完成啦 🌱"
+  );
+
+}
+
+
+/* =========================================================
+   家长留言
+========================================================= */
+
+function sendParentMessage() {
+
+  const input =
+    document
+    .getElementById(
+      "parentMessage"
+    );
+
+
+  const text =
+    input
+    .value
+    .trim();
+
+
+  if(!text) {
+
+    showToast(
+      "先写一句想对孩子说的话吧"
+    );
+
+    return;
+
+  }
+
+
+  state.parentMessage =
+    text;
+
+
+  saveState();
+
+
+  input.value = "";
+
+
+  renderFamilyMessage();
+
+  refreshParent();
+
+
+  showToast(
+    "已经把这句话留给孩子啦 💌"
+  );
+
+}
+
+
+/* =========================================================
+   显示家长留言
+========================================================= */
+
+function renderFamilyMessage() {
+
+  const box =
+    document
+    .getElementById(
+      "childMessage"
+    );
+
+
+  if(
+    state.parentMessage
+  ) {
+
+    box.innerHTML =
+
+      "💌 "
+      +
+      safe(
+        state.parentMessage
+      );
+
+  }
+
+  else {
+
+    box.textContent =
+      "💌 这里会显示家长给你的鼓励和提醒。";
+
+  }
+
+}
+
+
+/* =========================================================
+   家长数据显示
+========================================================= */
+
+function refreshParent() {
+
+  const userMessages =
+    state.chatHistory
+    .filter(
+      item =>
+        item.role
+        ===
+        "user"
+    )
+    .length;
+
+
+  const aiMessages =
+    state.chatHistory
+    .filter(
+      item =>
+        item.role
+        ===
+        "bot"
+    )
+    .length;
+
+
+  const totalMessages =
+    state.chatHistory
+    .length;
+
+
+  setText(
+    "summaryText",
+    "AI互动 "
+    +
+    state.aiCount
+    +
+    " 次"
+  );
+
+
+  setText(
+    "statChat",
+    state.aiCount
+  );
+
+
+  setText(
+    "statMessages",
+    userMessages
+  );
+
+
+  setText(
+    "statChallenge",
+    state.challengeDone
+    ?
+    "已完成"
+    :
+    "未完成"
+  );
+
+
+  setText(
+    "statFamily",
+    state.parentMessage
+    ?
+    "1"
+    :
+    "0"
+  );
+
+
+  setText(
+    "recordUserCount",
+    userMessages
+  );
+
+
+  setText(
+    "recordAiCount",
+    aiMessages
+  );
+
+
+  setText(
+    "recordTotal",
+    totalMessages
+  );
+
+
+  setText(
+    "recordInteraction",
+    state.aiCount
+  );
+
+
+  const current =
+    document
+    .getElementById(
+      "parentCurrentMessage"
+    );
+
+
+  if(current) {
+
+    current.textContent =
+
+      state.parentMessage
+
+      ||
+
+      "暂时还没有留言。";
+
+  }
+
+
+  renderParentChatRecord();
+
+}
+
+
+/* =========================================================
+   家长聊天记录
+========================================================= */
+
+function renderParentChatRecord() {
+
+  const record =
+    document
+    .getElementById(
+      "parentChatRecord"
+    );
+
+
+  if(!record) {
+
+    return;
+
+  }
+
+
+  if(
+    !state.chatHistory.length
+  ) {
+
+    record.innerHTML = `
+
+      <div
+        style="
+          padding:30px;
+          text-align:center;
+          color:#77839a;
+        "
+      >
+        💬 今天暂时还没有聊天记录。
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  record.innerHTML =
+
+    state.chatHistory
+
+    .map(
+
+      item => {
+
+        const isUser =
+          item.role
+          ===
+          "user";
+
+
+        return `
+
+          <div class="chat-record-item">
+
+            <div class="record-role">
+
+              ${
+                isUser
+                ?
+                "👧 孩子"
+                :
+                "🤖 小智"
+              }
+
+            </div>
+
+
+            <div class="record-text">
+
+              ${safe(item.text)}
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+
+    )
+
+    .join("");
+
+}
+
+
+/* =========================================================
+   清空聊天
+========================================================= */
+
+function clearChatHistory() {
+
+  const confirmed =
+    confirm(
+      "确定要清空当前浏览器保存的聊天记录吗？"
+    );
+
+
+  if(!confirmed) {
+
+    return;
+
+  }
+
+
+  state.chatHistory = [];
+
+  state.aiCount = 0;
+
+
+  saveState();
+
+  renderChat();
+
+  refreshParent();
+
+
+  showToast(
+    "聊天记录已清空"
+  );
+
+}
+
+
+/* =========================================================
+   AI成长分析
+========================================================= */
+
+async function generateReport() {
+
+  const output =
+    document
+    .getElementById(
+      "parentReport"
+    );
+
+
+  const button =
+    document
+    .getElementById(
+      "reportButton"
+    );
+
+
+  if(
+    !state.chatHistory.length
+  ) {
+
+    output.textContent =
+      "今天暂时还没有足够的聊天记录，可以先让孩子和小智聊一聊。";
+
+    return;
+
+  }
+
+
+  output.textContent =
+    "小智正在整理孩子今天的表现，请稍候……";
+
+
+  if(button) {
+
+    button.disabled =
+      true;
+
+    button.textContent =
+      "正在生成…";
+
+  }
+
+
+  const conversation =
+
+    state.chatHistory
+
+    .map(
+
+      item =>
+
+        (
+          item.role
+          ===
+          "user"
+          ?
+          "孩子："
+          :
+          "AI："
+        )
+
+        +
+        item.text
+
+    )
+
+    .join("\n");
+
+
+  const prompt =
+
+    "下面是孩子今天与AI伙伴的聊天记录：\n\n"
+
+    +
+    conversation
+
+    +
+
+    "\n\n请从儿童成长陪伴的角度，为家长生成一份简短的今日成长观察。"
+
+    +
+
+    "包含：1.孩子今天可能在关注什么；"
+
+    +
+
+    "2.有哪些值得肯定的表现；"
+
+    +
+
+    "3.家长可以怎样自然地陪伴。"
+
+    +
+
+    "不要进行医学诊断，不要给孩子贴标签，控制在300字以内。";
+
+
+  try {
+
+    const response =
+      await fetch(
+
+        API
+        +
+        "/api/ai/analyze",
+
+        {
+
+          method:"POST",
+
+          headers:{
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              text:prompt
+
+            })
+
+        }
+
+      );
+
+
+    if(!response.ok) {
+
+      const errorText =
+        await response.text();
+
+
+      throw new Error(
+        errorText
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    output.textContent =
+
+      data.result
+
+      ||
+
+      "暂时没有生成成长分析结果。";
+
+  }
+
+  catch(error) {
+
+    console.error(
+      "成长分析失败：",
+      error
+    );
+
+
+    output.textContent =
+      "成长分析暂时无法生成，请检查后端服务和豆包API连接。";
+
+  }
+
+  finally {
+
+    if(button) {
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "✨ 重新生成成长建议";
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   机器人控制
+========================================================= */
+
+let robotTimer =
+  null;
+
+
+function robotMove(action) {
+
+  const status =
+    document
+    .getElementById(
+      "robotAction"
+    );
+
+
+  if(status) {
+
+    status.textContent =
+      action;
+
+  }
+
+
+  showToast(
+    "机器人演示指令："
+    +
+    action
+  );
+
+
+  clearTimeout(
+    robotTimer
+  );
+
+
+  if(
+    action !== "停止"
+  ) {
+
+    robotTimer =
+      setTimeout(
+
+        () => {
+
+          if(status) {
+
+            status.textContent =
+              "待机";
+
+          }
+
+        },
+
+        1800
+
+      );
+
+  }
+
+}
+
+
+/* =========================================================
+   视频
+========================================================= */
+
+let micOn =
+  true;
+
+let cameraOn =
+  true;
+
+let speakerOn =
+  true;
+
+
+function startVideoCall() {
+
+  document
+  .getElementById(
+    "videoPlaceholder"
+  )
+  .style.display =
+    "none";
+
+
+  document
+  .getElementById(
+    "videoScreen"
+  )
+  .style.display =
+    "grid";
+
+
+  setText(
+    "videoStatus",
+    "视频通话中"
+  );
+
+
+  showToast(
+    "视频通话演示已开启 📹"
+  );
+
+}
+
+
+function endVideoCall() {
+
+  document
+  .getElementById(
+    "videoScreen"
+  )
+  .style.display =
+    "none";
+
+
+  document
+  .getElementById(
+    "videoPlaceholder"
+  )
+  .style.display =
+    "grid";
+
+
+  setText(
+    "videoStatus",
+    "当前未通话"
+  );
+
+
+  showToast(
+    "视频通话已结束"
+  );
+
+}
+
+
+/* =========================================================
+   麦克风
+========================================================= */
+
+function toggleMic() {
+
+  micOn =
+    !micOn;
+
+
+  document
+  .getElementById(
+    "micButton"
+  )
+  .textContent =
+
+    micOn
+
+    ?
+
+    "🎤 麦克风开启"
+
+    :
+
+    "🔇 麦克风关闭";
+
+
+  showToast(
+
+    micOn
+
+    ?
+
+    "麦克风已开启"
+
+    :
+
+    "麦克风已关闭"
+
+  );
+
+}
+
+
+/* =========================================================
+   摄像头
+========================================================= */
+
+function toggleCamera() {
+
+  cameraOn =
+    !cameraOn;
+
+
+  document
+  .getElementById(
+    "cameraButton"
+  )
+  .textContent =
+
+    cameraOn
+
+    ?
+
+    "📷 摄像头开启"
+
+    :
+
+    "🚫 摄像头关闭";
+
+
+  showToast(
+
+    cameraOn
+
+    ?
+
+    "摄像头已开启"
+
+    :
+
+    "摄像头已关闭"
+
+  );
+
+}
+
+
+/* =========================================================
+   扬声器
+========================================================= */
+
+function toggleSpeaker() {
+
+  speakerOn =
+    !speakerOn;
+
+
+  document
+  .getElementById(
+    "speakerButton"
+  )
+  .textContent =
+
+    speakerOn
+
+    ?
+
+    "🔊 扬声器开启"
+
+    :
+
+    "🔇 扬声器关闭";
+
+
+  showToast(
+
+    speakerOn
+
+    ?
+
+    "扬声器已开启"
+
+    :
+
+    "扬声器已关闭"
+
+  );
+
+}
+
+
+/* =========================================================
+   Toast
+========================================================= */
+
+let toastTimer =
+  null;
+
+
+function showToast(text) {
+
+  const toast =
+    document
+    .getElementById(
+      "toast"
+    );
+
+
+  toast.textContent =
+    text;
+
+
+  toast
+  .classList
+  .add(
+    "show"
+  );
+
+
+  clearTimeout(
+    toastTimer
+  );
+
+
+  toastTimer =
+    setTimeout(
+
+      () => {
+
+        toast
+        .classList
+        .remove(
+          "show"
+        );
+
+      },
+
+      1900
+
+    );
+
+}
+
+
+/* =========================================================
+   设置文本
+========================================================= */
+
+function setText(
+  id,
+  value
+) {
+
+  const element =
+    document
+    .getElementById(id);
+
+
+  if(element) {
+
+    element.textContent =
+      value;
+
+  }
+
+}
+
+
+/* =========================================================
+   HTML转义
+========================================================= */
+
+function safe(value) {
+
+  return String(value)
+
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+
+  .replace(
+    /</g,
+    "&lt;"
+  )
+
+  .replace(
+    />/g,
+    "&gt;"
+  )
+
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+
+  .replace(
+    /'/g,
+    "&#039;"
+  );
+
+}
+
+
+/* =========================================================
+   Enter发送
+========================================================= */
+
+document
+.getElementById(
+  "chatInput"
+)
+.addEventListener(
+
+  "keydown",
+
+  function(event) {
+
+    if(
+      event.key
+      ===
+      "Enter"
+
+      &&
+
+      !event.shiftKey
+    ) {
+
+      event.preventDefault();
+
+      sendChat();
+
+    }
+
+  }
+
+);
+
+
+/* =========================================================
+   初始化
+========================================================= */
+
+checkBackend();
+
+renderChat();
+
+renderFamilyMessage();
+
+refreshParent();
+
+
+</script>
+
+
+</body>
+
+</html>
